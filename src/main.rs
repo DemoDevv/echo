@@ -37,7 +37,7 @@ fn main() {
         let api_folder = std::env::current_dir().unwrap().join("api");
 
         // if !api_folder.exists() {
-        //     println!("Le dossier api n'existe pas");
+        //     println!("Le dossier api n'existe pas.");
         //     return;
         // }
 
