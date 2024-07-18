@@ -35,6 +35,7 @@ impl REPLACE_NAME_PLURIELRepository {
     }
 }
 
+// TODO: You have to create your model REPLACE_TYPE in the models dir
 #[async_trait::async_trait]
 impl Repository<REPLACE_TYPE, NewREPLACE_TYPE> for REPLACE_NAME_PLURIELRepository {
     async fn get(&self, id: i32) -> RepositoryResult<REPLACE_TYPE> {
