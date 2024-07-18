@@ -1,6 +1,8 @@
 use clap::{Arg, Command};
 
+mod composants;
 mod templates;
+mod utils;
 
 fn main() {
     let matches = Command::new("echo")
@@ -43,7 +45,10 @@ fn main() {
             "repository" => {
                 // un repository et un type vide
                 // ajoute au fichier model.rs la publication du nouveau module et de même pour le repository
-                templates::create_repository(&api_folder, &file_name);
+                templates::create_repository(
+                    &api_folder,
+                    composants::Composant::Repository(file_name.to_owned()),
+                );
             }
             "extractor" => {
                 unimplemented!("Création d'extractor non implémentée")
@@ -51,7 +56,10 @@ fn main() {
             "handler" => {
                 // créer un handler REST ou alors un handler vide avec uniquement la fonction de configuration des routes vides
                 // a voir si on peut ajouter l'appel à la fonction de configuration des routes dans le fichier routes.rs
-                templates::create_handler(&api_folder, &file_name);
+                templates::create_handler(
+                    &api_folder,
+                    composants::Composant::Handler(file_name.to_owned()),
+                );
             }
             "middleware" => {
                 unimplemented!("Création de middleware non implémentée")

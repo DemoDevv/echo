@@ -1,5 +1,13 @@
-pub(crate) fn create_repository(api_folder: &std::path::Path, file_name: &str) {
-    println!("Création d'un modèle");
+use crate::composants::Composant;
+
+pub(crate) fn create_repository(api_folder: &std::path::Path, file: Composant) {
+    println!("Création d'un repository");
+
+    let file_name = if let Composant::Repository(name) = file {
+        name
+    } else {
+        return;
+    };
 
     let mut name = file_name.to_lowercase();
 
@@ -57,6 +65,6 @@ impl Repository<REPLACE_TYPE, NewREPLACE_TYPE> for REPLACE_NAME_PLURIELRepositor
     println!("{}", template_repository_file);
 }
 
-pub(crate) fn create_handler(api_folder: &std::path::Path, file_name: &str) {
+pub(crate) fn create_handler(api_folder: &std::path::Path, file: Composant) {
     println!("Création d'un handler");
 }
