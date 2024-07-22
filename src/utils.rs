@@ -24,6 +24,27 @@ pub(crate) fn find_api_file(
 
             return Err(Error::new(ErrorKind::NotFound, "Fichier non trouvé"));
         }
+        Composant::Type => {
+            let type_path = api_folder.join("types/src");
+
+            if type_path.join(file_name).exists() {
+                return Ok(type_path.join(file_name));
+            }
+
+            return Err(Error::new(ErrorKind::NotFound, "Fichier non trouvé"));
+        }
+        Composant::Model => {
+            let db_path = api_folder.join("db/src");
+            let model_path = db_path.clone().join("models");
+
+            if db_path.join(file_name).exists() {
+                return Ok(db_path.join(file_name));
+            } else if model_path.join(file_name).exists() {
+                return Ok(model_path.join(file_name));
+            }
+
+            return Err(Error::new(ErrorKind::NotFound, "Fichier non trouvé"));
+        }
         Composant::Handler(_) => {
             return Err(Error::new(ErrorKind::NotFound, "Fichier non trouvé"));
         }
