@@ -36,10 +36,10 @@ fn main() {
         // trouver le dossier api au niveau du pwd
         let api_folder = std::env::current_dir().unwrap().join("api");
 
-        // if !api_folder.exists() {
-        //     println!("Le dossier api n'existe pas.");
-        //     return;
-        // }
+        if !api_folder.exists() {
+            println!("Le dossier api n'existe pas.");
+            return;
+        }
 
         match file_composant.as_str() {
             "repository" => {
