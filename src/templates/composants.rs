@@ -53,13 +53,18 @@ impl Repository<REPLACE_TYPE, NewREPLACE_TYPE> for REPLACE_NAME_PLURIELRepositor
 }
 
 pub(crate) fn empty_type(type_name: &str) -> String {
-    r#"#[derive(Serialize, Deserialize)]
+    r#"use serde::{Deserialize, Serialize};
+
+#[derive(Serialize, Deserialize)]
 pub struct NewTYPE;"#
         .replace("TYPE", type_name)
 }
 
 pub(crate) fn empty_model(type_name: &str, pluriel_name: &str) -> String {
-    r#"#[derive(Queryable, Selectable, Serialize, Deserialize)]
+    r#"use diesel::prelude::*;
+use serde::{Deserialize, Serialize};
+
+#[derive(Queryable, Selectable, Serialize, Deserialize)]
 #[diesel(table_name = PLURIEL_NAME)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct TYPE;"#
