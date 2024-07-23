@@ -46,6 +46,12 @@ pub(crate) fn find_api_file(
             return Err(Error::new(ErrorKind::NotFound, "Fichier non trouvé"));
         }
         Composant::Handler(_) => {
+            let handler_path = api_folder.join("handlers/src");
+
+            if handler_path.join(file_name).exists() {
+                return Ok(handler_path.join(file_name));
+            }
+
             return Err(Error::new(ErrorKind::NotFound, "Fichier non trouvé"));
         }
     }

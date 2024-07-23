@@ -90,5 +90,36 @@ pub(crate) fn create_repository(api_folder: &std::path::Path, file: Composant) {
 }
 
 pub(crate) fn create_handler(api_folder: &std::path::Path, file: Composant) {
-    unimplemented!()
+    let file_name = if let Composant::Handler(name) = file {
+        name
+    } else {
+        return;
+    };
+
+    let handlers_folder_path = api_folder.join("handlers/src");
+
+    if !handlers_folder_path.exists() {
+        println!(
+            "le dossier {} n'existe pas",
+            handlers_folder_path.file_name().unwrap().to_str().unwrap()
+        );
+        exit(1);
+    }
+
+    let handler_file_name = format!("{}.rs", &file_name);
+    let handler_path_buf = handlers_folder_path.join(&handler_file_name);
+
+    if handler_path_buf.exists() {
+        println!("Ce handler existe déjà");
+        exit(1);
+    }
+
+    let mod_handler_path = find_api_file(api_folder, Composant::Handler("".to_string()), "lib.rs")
+        .expect("Le fichier lib.rs est introuvable");
+
+    create_file_with_content(&handler_path_buf, &composants::handler())
+        .expect("Erreur lors de la création du nouveau handler");
+
+    publish_new_module(&mod_handler_path, &publish::mod_common(&file_name))
+        .expect("Erreur lors de l'écriture dans le fichier lib.rs");
 }

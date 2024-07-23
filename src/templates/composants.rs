@@ -66,3 +66,17 @@ pub struct TYPE;"#
         .replace("TYPE", type_name)
         .replace("PLURIEL_NAME", pluriel_name)
 }
+
+pub(crate) fn handler() -> String {
+    r#"use actix_web::{web, Error, HttpResponse};
+
+pub fn service(cfg: &mut web::ServiceConfig) {
+    cfg.service(web::resource("/index").route(web::get().to(index)));
+}
+
+pub async fn index() -> Result<HttpResponse, Error> {
+    Ok(HttpResponse::Ok()
+        .json("the server is alive."))
+}"#
+    .to_string()
+}
