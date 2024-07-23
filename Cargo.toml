@@ -1,10 +1,10 @@
 [package]
-name = "echo"
+name = "echofab"
 version = "0.1.0"
 edition = "2021"
 
 [[bin]]
-name = "echo"
+name = "echofab"
 path = "src/main.rs"
 
 [dependencies]
