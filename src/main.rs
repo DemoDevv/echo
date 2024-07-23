@@ -5,10 +5,10 @@ mod templates;
 mod utils;
 
 fn main() {
-    let matches = Command::new("echo")
+    let matches = Command::new("echofab")
         .version("1.0")
         .author("DemoDevv")
-        .about("echo est l'outil de production de EF-backend pour générer des fichiers de code")
+        .about("echofab est l'outil de production de EF-backend pour générer des fichiers de code")
         .subcommand(
             Command::new("create")
                 .about("Crée un nouveau composant")
